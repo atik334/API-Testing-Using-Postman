@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "c6a2298c-02b4-4bae-98a1-08a5cec9dbcc",
+		"name": "Student_portal_API-Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/studentsDetails",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resdata = pm.response.json()\r",
+							"pm.environment.set(\"id\",resdata.id)\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First Name validation\", function () {\r",
+							"    pm.expect(resdata.first_name).to.eql(\"sample string 2\");\r",
+							"});\r",
+							"pm.test(\"Middle Name validation\", function () {\r",
+							"    pm.expect(resdata.middle_name).to.eql(\"sample string 3\");\r",
+							"});\r",
+							"pm.test(\"Last Name validation\", function () {\r",
+							"    pm.expect(resdata.last_name).to.eql(\"sample string 4\");\r",
+							"});\r",
+							"pm.test(\"Date of Birth\", function () {\r",
+							"    pm.expect(resdata.date_of_birth).to.eql(\"sample string 5\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"sample string 2\",\r\n  \"middle_name\": \"sample string 3\",\r\n  \"last_name\": \"sample string 4\",\r\n  \"date_of_birth\": \"sample string 5\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/studentsDetails",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resdata = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status validation\", function () {\r",
+							"    pm.expect(resdata.status).to.eql(\"true\");\r",
+							"});\r",
+							"pm.test(\"Message validation\", function () {\r",
+							"    pm.expect(resdata.msg).to.eql(\"update  data success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":{{id}},\r\n  \"first_name\": \"sample \",\r\n  \"middle_name\": \"sample \",\r\n  \"last_name\": \"sample \",\r\n  \"date_of_birth\": \"sample \"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/studentsDetails/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Specific Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/studentsDetails/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
